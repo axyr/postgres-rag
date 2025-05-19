@@ -1,7 +1,7 @@
 # Build stage
 ARG IMAGE_PLATFORM=linux/amd64
 
-FROM --platform=$IMAGE_PLATFORM paradedb/paradedb:0.15.19-rc.0 AS build
+FROM --platform=$IMAGE_PLATFORM paradedb/paradedb:latest-pg17 AS build
 
 USER root
 
@@ -20,7 +20,7 @@ RUN git clone https://github.com/pgvector/pgvector.git /tmp/pgvector && \
     make install && \
     rm -rf /tmp/pgvector
 
-FROM --platform=$IMAGE_PLATFORM paradedb/paradedb:0.15.19-rc.0
+FROM --platform=$IMAGE_PLATFORM paradedb/paradedb:latest-pg17
 
 COPY --from=build /usr/lib/postgresql/17/lib/vector.so /usr/lib/postgresql/17/lib/postgresql/
 
